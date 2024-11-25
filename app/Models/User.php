@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Coderflex\LaravelTicket\Concerns\HasTickets;
+use Coderflex\LaravelTicket\Contracts\CanUseTickets;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasDefaultTenant;
@@ -16,13 +18,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Wallo\FilamentCompanies\HasCompanies;
 use Wallo\FilamentCompanies\HasProfilePhoto;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar, HasDefaultTenant, HasTenants
+class User extends Authenticatable implements FilamentUser, HasAvatar, HasDefaultTenant, HasTenants, CanUseTickets
 {
     use HasApiTokens;
     use HasCompanies;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
+    use HasTickets;
 
     /**
      * The attributes that are mass assignable.

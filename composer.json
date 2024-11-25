@@ -8,7 +8,9 @@
     "require": {
         "php": "^8.2",
         "andrewdwallo/filament-companies": "^4.0",
+        "coderflex/laravel-ticket": "^2.0",
         "filament/filament": "^3.2",
+        "filament/spatie-laravel-media-library-plugin": "*",
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"
