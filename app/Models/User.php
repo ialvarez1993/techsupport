@@ -18,14 +18,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Wallo\FilamentCompanies\HasCompanies;
 use Wallo\FilamentCompanies\HasProfilePhoto;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar, HasDefaultTenant, HasTenants, CanUseTickets
+class User extends Authenticatable implements CanUseTickets, FilamentUser, HasAvatar, HasDefaultTenant, HasTenants
 {
     use HasApiTokens;
     use HasCompanies;
     use HasFactory;
     use HasProfilePhoto;
-    use Notifiable;
     use HasTickets;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -80,7 +80,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasDefaul
         return $this->belongsToCompany($tenant);
     }
 
-    public function getTenants(Panel $panel): array | Collection
+    public function getTenants(Panel $panel): array|Collection
     {
         return $this->allCompanies();
     }

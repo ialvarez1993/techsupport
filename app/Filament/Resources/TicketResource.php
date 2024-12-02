@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Parallax\FilamentComments\Tables\Actions\CommentsAction;
 
 class TicketResource extends Resource
 {
@@ -33,14 +34,8 @@ class TicketResource extends Resource
                                     Forms\Components\Select::make('user_id')
                                         ->relationship('user', 'name')
                                         ->required(),
-                                    Forms\Components\Select::make('store_branch')->options(['lots' => 'Lots']),
                                     Forms\Components\TextInput::make('title')
                                         ->required(),
-                                    Forms\Components\TextInput::make('product_sku')
-                                        ->required(),
-                                    Forms\Components\TextInput::make('product_name')
-                                        ->required(),
-                                    TextArea::make('address'),
                                     Forms\Components\RichEditor::make('message'),
                                 ]),
 
@@ -60,45 +55,45 @@ class TicketResource extends Resource
                                 ->description('Information about the assigned technician and the priority it has.')
                                 ->schema([
                                     Forms\Components\TextInput::make('assigned_to')->numeric(),
-                                    DateTimePicker::make('scheduled_at'),
+                                    // DateTimePicker::make('scheduled_at'),
                                     Forms\Components\Select::make('priority')->placeholder('Select status')->options(['low' => 'Low', 'medium' => 'Medium', 'high' => 'High', 'critical' => 'Critical'])
                                         ->required(),
                                 ]),
                         ]),
-                    Wizard\Step::make('Visit')->icon('heroicon-s-calendar-date-range')
-                        ->schema([
-                            Section::make('Time and Place')
-                                ->description('Description')
-                                ->schema([
-                                    Forms\Components\TextInput::make('latitud')->numeric(),
-                                    Forms\Components\TextInput::make('longitud')->numeric(),
-                                    DateTimePicker::make('started_at'),
-                                    DateTimePicker::make('finished_at'),
-                                ]),
-                        ]),
-                    Wizard\Step::make('Diagnosis')->icon('heroicon-o-magnifying-glass')
-                        ->schema([
-                            Section::make('Diagnosis')
-                                ->description('Description')
-                                ->schema([
-                                    TextArea::make('diagnosis'),
-                                    Forms\Components\Toggle::make('is_reparable')
-                                        ->required(),
-                                    // Selectable options from company
-                                    Forms\Components\Select::make('services')->placeholder('Select service')->options(['repair' => 'Repair', 'replace' => 'Replace Consumable'])->required(),
-                                ]),
-                        ]),
-                    Wizard\Step::make('Spare parts')->icon('heroicon-s-document-magnifying-glass')
-                        ->schema([
-                            Section::make('Parts')
-                                ->description('Description')
-                                ->schema([
-                                    Forms\Components\Toggle::make('requieres_parts')->required(),
-                                    TextArea::make('part_list'),
-                                    Forms\Components\Toggle::make('is_approved')
-                                        ->required(),
-                                ]),
-                        ]),
+                    // Wizard\Step::make('Visit')->icon('heroicon-s-calendar-date-range')
+                    //     ->schema([
+                    //         Section::make('Time and Place')
+                    //             ->description('Description')
+                    //             ->schema([
+                    //                 // Forms\Components\TextInput::make('latitud')->numeric(),
+                    //                 // Forms\Components\TextInput::make('longitud')->numeric(),
+                    //                 // DateTimePicker::make('started_at'),
+                    //                 // DateTimePicker::make('finished_at'),
+                    //             ]),
+                    //     ]),
+                    // Wizard\Step::make('Diagnosis')->icon('heroicon-o-magnifying-glass')
+                    //     ->schema([
+                    //         Section::make('Diagnosis')
+                    //             ->description('Description')
+                    //             ->schema([
+                    //                 TextArea::make('diagnosis'),
+                    //                 Forms\Components\Toggle::make('is_reparable')
+                    //                     ->required(),
+                    //                 // Selectable options from company
+                    //                 // Forms\Components\Select::make('services')->placeholder('Select service')->options(['repair' => 'Repair', 'replace' => 'Replace Consumable'])->required(),
+                    //             ]),
+                    //     ]),
+                    // Wizard\Step::make('Spare parts')->icon('heroicon-s-document-magnifying-glass')
+                    //     ->schema([
+                    //         Section::make('Parts')
+                    //             ->description('Description')
+                    //             ->schema([
+                    //                 // Forms\Components\Toggle::make('requieres_parts')->required(),
+                    //                 // TextArea::make('part_list'),
+                    //                 // Forms\Components\Toggle::make('is_approved')
+                    //                 //     ->required(),
+                    //             ]),
+                    //     ]),
                 ]),
 
             ])->columns(1);
@@ -140,6 +135,7 @@ class TicketResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                CommentsAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
